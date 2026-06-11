@@ -15,7 +15,7 @@ class Segment:
 
 class IntersectionFinder:
     @staticmethod
-    def find_intersection(s1: Segment, s2: Segment) -> bool | Point | Segment:
+    def find_intersection(s1: Segment, s2: Segment) -> None | Point | Segment:
         denom: float = IntersectionFinder._get_denominator(s1, s2)
 
         if denom != 0:
@@ -24,7 +24,16 @@ class IntersectionFinder:
 
             if IntersectionFinder._is_point_on_segments(p, s1, s2):
                 return p
-            return False
+            return None
+
+        if IntersectionFinder._are_segments_collinear(s1, s2) and (
+            res := IntersectionFinder._find_overlapping_intersections(s1, s2)
+        ) is not None:
+            return res
+
+        return None
+        
+
     
     @staticmethod
     def _get_denominator(s1: Segment, s2: Segment) -> float:
@@ -72,10 +81,31 @@ class IntersectionFinder:
         return on_s1 and on_s2
 
     @staticmethod
-    def _are_segments_collinear():
-        pass
+    def _are_segments_collinear(s1: Segment, s2: Segment) -> bool:
+        """
+        Sprawdzamy czy odcinki leza na tej samej prostej
+        """
+        equation = (
+            (s1.p2.X - s1.p1.X) * (s2.p1.Y - s1.p1.Y) - 
+            (s1.p2.Y - s1.p1.Y) * (s2.p1.X - s1.p1.X)
+        )
+        return abs(equation) < 1e-9
 
     @staticmethod
-    def _find_overlapping_intersection():
-        pass
+    def _find_overlapping_intersections(s1: Segment, s2: Segment) -> None | Point | Segment:
+        """
+        Sprawdzamy czy odcinki na siebie nachodza
+        """
+        x_start = max(min(s1.p1.X, s1.p2.X), min(s2.p1.X, s2.p2.X))
+        x_end = min(max(s1.p1.X, s1.p2.X), max(s2.p1.X, s2.p2.X))
+        y_start = max(min(s1.p1.Y, s1.p2.Y), min(s2.p1.Y, s2.p2.Y))
+        y_end = min(max(s1.p1.Y, s1.p2.Y), max(s2.p1.Y, s2.p2.Y))
+        
+        if x_start > x_end or y_start > y_end:
+            return None
+
+        if x_start == x_end and y_start == y_end:
+            return Point(x_start, y_start)
+
+        return Segment(Point(x_start, y_start), Point(x_end, y_end))
     
