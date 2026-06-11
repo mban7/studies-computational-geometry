@@ -32,7 +32,6 @@ class IntersectionFinder:
             return res
 
         return None
-        
 
     
     @staticmethod
