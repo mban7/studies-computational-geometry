@@ -100,7 +100,7 @@ class IntersectionFinder:
         x_end = min(max(s1.p1.X, s1.p2.X), max(s2.p1.X, s2.p2.X))
         y_start = max(min(s1.p1.Y, s1.p2.Y), min(s2.p1.Y, s2.p2.Y))
         y_end = min(max(s1.p1.Y, s1.p2.Y), max(s2.p1.Y, s2.p2.Y))
-        
+
         if x_start > x_end or y_start > y_end:
             return None
 
