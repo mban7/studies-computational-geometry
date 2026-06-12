@@ -10,7 +10,8 @@ requires-python = ">=3.14"
 dependencies = ["rich", "streamlit"]
 
 [project.scripts]
-computational-geo = "computational_geo.main:main"
+computational-geo = "computational_geo.cli:main"
+computational-geo-web = "computational_geo.main:run_web"
 
 [dependency-groups]
 dev = ["pytest>=8.0"]
