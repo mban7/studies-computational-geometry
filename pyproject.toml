@@ -7,7 +7,7 @@ authors = [
     { name = "mban7", email = "banasikm07@gmail.com" }
 ]
 requires-python = ">=3.14"
-dependencies = ["rich", "streamlit"]
+dependencies = ["rich", "streamlit", "matplotlib"]
 
 [project.scripts]
 computational-geo = "computational_geo.cli:main"

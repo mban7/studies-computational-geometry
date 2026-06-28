@@ -6,6 +6,7 @@ from computational_geo.computations.intersection_points import (
     Point,
     Segment,
 )
+from computational_geo.plotting import plot_hull, plot_intersection
 
 st.set_page_config(page_title="Geometria obliczeniowa")
 
@@ -61,6 +62,8 @@ if mode == "intersection":
                 f"({result.p2.X}, {result.p2.Y})"
             )
 
+        st.pyplot(plot_intersection(s1, s2, result))
+
 else:
     st.caption("Podaj cztery punkty.")
     points: list[Point] = [point_input(i) for i in range(1, 5)]
@@ -73,3 +76,5 @@ else:
             "Kolejne wierzchołki: "
             + " → ".join(f"({p.X}, {p.Y})" for p in hull)
         )
+
+        st.pyplot(plot_hull(points, hull))
